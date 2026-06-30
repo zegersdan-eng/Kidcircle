@@ -6,6 +6,19 @@ import { authenticate } from '../middleware/auth.js';
 const router = Router();
 
 /**
+ * Helper to generate a URL-friendly slug
+ */
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')     // Replace spaces with -
+    .replace(/[^\w-]+/g, '')   // Remove all non-word chars
+    .replace(/--+/g, '-');    // Replace multiple - with single -
+}
+
+/**
  * Determine if a provider qualifies for the "Parent Verified" badge.
  * Criteria: 4.2+ avg rating, 3+ reviews, profile complete (has desc + contact)
  */
@@ -25,7 +38,7 @@ router.get('/', async (req, res) => {
     const { zip_code, category_id, q, min_rating, limit = 20, offset = 0 } = req.query;
 
     // Build base WHERE clause
-    const conditions = ['active = 1'];
+    const conditions = ["(status = 'active' OR status IS NULL)", 'active = 1'];
     const args = [];
 
     if (zip_code) {
@@ -158,17 +171,31 @@ router.get('/:id/recommendations', async (req, res) => {
 // POST /api/providers — Register a new provider
 router.post('/', async (req, res) => {
   try {
-    const { name, description, category_id, email, phone, website, address, zip_code } = req.body;
+    const { 
+      name, description, category_id, email, phone, website, address, zip_code,
+      is_suggested = 0, suggested_by_user_id = null
+    } = req.body;
 
     if (!name || !category_id || !zip_code) {
       return res.status(400).json({ message: 'Name, category, and zip code are required' });
     }
 
     const id = uuidv4();
+    const slug = `${slugify(name)}-${id.substring(0, 5)}`;
+    
     await db.execute({
-      sql: `INSERT INTO providers (id, name, description, category_id, email, phone, website, address, zip_code)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      args: [id, name, description || '', category_id, email || null, phone || null, website || null, address || null, zip_code],
+      sql: `INSERT INTO providers (
+              id, name, slug, description, category_id, email, phone, website, address, zip_code, 
+              status, active, is_suggested, suggested_by_user_id, verified
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?)`,
+      args: [
+        id, name, slug, description || '', category_id, email || null, phone || null, 
+        website || null, address || null, zip_code, 
+        is_suggested ? 'pending' : 'active',
+        is_suggested, suggested_by_user_id,
+        is_suggested ? 0 : 0 // Suggestion defaults to unverified
+      ],
     });
 
     const result = await db.execute({
@@ -179,6 +206,51 @@ router.post('/', async (req, res) => {
     res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error('Create provider error:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// ============================================================
+// POST /api/providers/suggest — Suggest a new provider (by a Parent)
+// Protected: Requires valid JWT
+// Body: { name, category_id, zip_code, description?, phone?, website? }
+// ============================================================
+router.post('/suggest', authenticate, async (req, res) => {
+  try {
+    const { name, category_id, zip_code, description, phone, website } = req.body;
+    const suggesterId = req.user.id;
+
+    if (!name || !category_id || !zip_code) {
+      return res.status(400).json({ message: 'Name, category, and zip code are required' });
+    }
+
+    const id = uuidv4();
+    const slug = `${slugify(name)}-${id.substring(0, 5)}`;
+
+    await db.execute({
+      sql: `INSERT INTO providers (
+              id, name, slug, description, category_id, suggested_by_user_id, 
+              zip_code, phone, website, status, active, is_suggested, verified,
+              created_at, updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', 1, 1, 0, datetime('now'), datetime('now'))`,
+      args: [
+        id, name, slug, description || '', category_id, suggesterId,
+        zip_code, phone || null, website || null
+      ],
+    });
+
+    const result = await db.execute({
+      sql: 'SELECT * FROM providers WHERE id = ?',
+      args: [id],
+    });
+
+    res.status(201).json({
+      message: 'Provider suggested successfully. It will be reviewed by our team.',
+      provider: result.rows[0],
+    });
+  } catch (err) {
+    console.error('Provider suggest error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -211,12 +283,12 @@ router.post('/register', authenticate, async (req, res) => {
     }
 
     const id = uuidv4();
-    const now = new Date().toISOString();
+    const slug = `${slugify(name)}-${id.substring(0, 5)}`;
 
     await db.execute({
-      sql: `INSERT INTO providers (id, name, description, category_id, user_id, zip_code, phone, website, address, active, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
-      args: [id, name, description || '', category_id, userId, zip_code, phone || null, website || null, address || null],
+      sql: `INSERT INTO providers (id, name, slug, description, category_id, user_id, zip_code, phone, website, address, status, active, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', 1, datetime('now'), datetime('now'))`,
+      args: [id, name, slug, description || '', category_id, userId, zip_code, phone || null, website || null, address || null],
     });
 
     const result = await db.execute({

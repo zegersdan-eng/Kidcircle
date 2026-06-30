@@ -1,66 +1,197 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import { api } from '../services/api';
 
 function Home() {
+  const [email, setEmail] = useState('');
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [emailError, setEmailError] = useState('');
+
+  const handleEmailSubmit = async (e) => {
+    e.preventDefault();
+    setEmailError('');
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError('Please enter a valid email address');
+      return;
+    }
+    
+    try {
+      await api.captureLead({ 
+        email, 
+        source: 'homepage_survival_guide' 
+      });
+      setEmailSubmitted(true);
+    } catch (err) {
+      setEmailError(err.message || 'Something went wrong. Please try again.');
+    }
+  };
+
   return (
     <div className="px-4 pb-32">
       <SEO
-        title="Home"
-        description="Find trusted tutors, camps, and enrichment programs recommended by Austin parents. Join the hyperlocal recommendation network."
+        title="Austin's Trusted Network for Family Enrichment"
+        description="Find trusted tutors, camps, and enrichment programs recommended by Austin parents. Join thousands of Austin families discovering the best kids' activities."
         url="/"
-        keywords="Austin kids activities, summer camps Austin, tutors Austin, enrichment programs"
+        keywords="Austin kids activities, summer camps Austin, tutors Austin, enrichment programs, Austin parenting"
       />
-      {/* Hero */}
-      <section className="pt-8 pb-6 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center mx-auto mb-4 shadow-lg shadow-primary/20">
-          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197" />
-          </svg>
+
+      {/* Hero Section — completely reimagined */}
+      <section className="pt-8 pb-8 text-center relative overflow-hidden">
+        {/* Decorative background blobs */}
+        <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-amber-400/5 rounded-full blur-3xl" />
+
+        {/* Logo badge */}
+        <div className="relative inline-flex items-center gap-2 bg-gradient-to-br from-primary/10 to-primary/5 rounded-full px-4 py-1.5 mb-5 border border-primary/10">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-xs font-semibold text-primary tracking-wide">Austin's Trusted Family Network</span>
         </div>
-        <h1 className="text-2xl font-bold text-text mb-2">
-          Find trusted services<br />near you
+
+        <h1 className="text-3xl font-extrabold text-text leading-tight mb-3 relative">
+          Stop Googling.
+          <br />
+          <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+            Start Asking Parents.
+          </span>
         </h1>
-        <p className="text-sm text-text-light mb-6 max-w-xs mx-auto">
-          Recommendations from parents you trust, for services your kids will love. Austin's trusted network.
+        <p className="text-sm text-text-light mb-8 max-w-sm mx-auto leading-relaxed">
+          KidCircle connects you with real recommendations from Austin parents — 
+          not anonymous reviews. Find the perfect camp, tutor, or program your kids will love.
         </p>
-        <div className="flex flex-col gap-3 max-w-xs mx-auto">
-          <Link to="/register" className="btn-primary text-sm inline-flex items-center justify-center gap-2">
+
+        {/* CTA buttons */}
+        <div className="flex flex-col gap-3 max-w-xs mx-auto relative">
+          <Link
+            to="/register"
+            className="btn-primary text-sm inline-flex items-center justify-center gap-2 shadow-xl shadow-primary/25 hover:shadow-primary/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+          >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
             </svg>
             Get Started — Join Free
           </Link>
-          <Link to="/providers" className="btn-secondary text-sm">
-            Browse Providers
+          <Link
+            to="/providers"
+            className="btn-secondary text-sm inline-flex items-center justify-center gap-2 hover:border-primary/30 transition-all hover:scale-[1.01]"
+          >
+            Browse 150+ Providers
           </Link>
-          <p className="text-xs text-text-muted">
-            Already a member?{' '}
-            <Link to="/login" className="text-primary font-medium hover:underline">Sign In</Link>
-          </p>
+        </div>
+
+        {/* Social proof mini */}
+        <div className="flex items-center justify-center gap-2 mt-5 text-xs text-text-muted">
+          <div className="flex -space-x-2">
+            {['SL', 'MK', 'JR', 'AT'].map((initials, i) => (
+              <div key={i} className="w-7 h-7 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 border-2 border-white flex items-center justify-center text-[9px] font-bold text-primary">
+                {initials}
+              </div>
+            ))}
+          </div>
+          <span><strong className="text-text">2.4K+</strong> Austin parents have joined</span>
         </div>
       </section>
 
       {/* Founding Parent Launch Banner */}
-      <div className="bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 rounded-2xl p-4 mb-6 shadow-lg shadow-amber-200 text-center">
-        <div className="flex items-center justify-center gap-2 mb-1">
+      <div className="bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 rounded-2xl p-4 mb-6 shadow-lg shadow-amber-200 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.15),transparent_60%)]" />
+        <div className="relative flex items-center justify-center gap-2 mb-1">
           <img src="/assets/badges/founding-parent.svg" alt="Founding Parent" className="w-7 h-7" />
           <span className="text-xs font-bold text-white bg-amber-700/30 px-2 py-0.5 rounded-full uppercase tracking-wider">Limited Time</span>
         </div>
-        <p className="text-sm font-bold text-white mb-0.5">
+        <p className="text-sm font-bold text-white mb-0.5 relative">
           🎉 Austin Launch Offer
         </p>
-        <p className="text-xs text-white/90">
+        <p className="text-xs text-white/90 relative">
           Join in the first 48 hours to become a <strong>Founding Parent</strong> &amp; lock in <strong className="text-amber-200">15% off for life!</strong>
         </p>
       </div>
 
-      <div className="flex items-center justify-around py-4 mb-6 bg-gray-50 rounded-xl">
+      {/* Stats row */}
+      <div className="flex items-center justify-around py-4 mb-6 bg-gradient-to-r from-gray-50 to-white rounded-2xl border border-gray-100/80">
         <Stat value="150+" label="Providers" />
         <div className="w-px h-8 bg-gray-200" />
         <Stat value="2.4K" label="Reviews" />
         <div className="w-px h-8 bg-gray-200" />
         <Stat value="Austin" label="Pilot City" />
       </div>
+
+      {/* Email Capture — The Austin Summer Survival Guide */}
+      <section className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 mb-6 border border-emerald-100 shadow-sm relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-200/20 rounded-full -mr-10 -mt-10 blur-2xl" />
+        <div className="relative">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-200">
+              <span className="text-xl">📖</span>
+            </div>
+            <div>
+              <h2 className="text-base font-bold text-text">
+                Free: Austin Summer Survival Guide
+              </h2>
+              <p className="text-xs text-text-light">
+                50+ pages of camps, tips, and parent-tested hacks
+              </p>
+            </div>
+          </div>
+
+          <p className="text-sm text-text-light mb-4 leading-relaxed">
+            <strong className="text-emerald-700">Don't let summer sneak up on you.</strong> Our guide covers the best Austin camps, 
+            last-minute booking strategies, traffic hacks, and the inside scoop from 500+ local parents.
+          </p>
+
+          {emailSubmitted ? (
+            <div className="bg-white rounded-xl p-5 text-center border border-emerald-200 shadow-sm">
+              <div className="text-3xl mb-2">🎉</div>
+              <h3 className="text-sm font-bold text-emerald-800 mb-1">Check your inbox!</h3>
+              <p className="text-xs text-emerald-600">
+                We just sent <strong className="text-emerald-700">The Austin Summer Survival Guide</strong> to <strong className="text-emerald-700">{email}</strong>. Welcome to the KidCircle community!
+              </p>
+              <div className="mt-3 flex items-center justify-center gap-2 text-[10px] text-text-muted">
+                <span className="flex items-center gap-1">🔒 No spam</span>
+                <span>·</span>
+                <span>Unsubscribe anytime</span>
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleEmailSubmit} className="space-y-3">
+              <div className="relative">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); setEmailError(''); }}
+                  placeholder="Enter your email for the free guide"
+                  className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm bg-white focus:outline-none focus:ring-2 transition-all ${
+                    emailError ? 'border-red-300 focus:ring-red-200' : 'border-gray-200 focus:ring-emerald-200 focus:border-emerald-400'
+                  }`}
+                  autoComplete="email"
+                />
+              </div>
+              {emailError && (
+                <p className="text-xs text-red-500 flex items-center gap-1">
+                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                  </svg>
+                  {emailError}
+                </p>
+              )}
+              <button
+                type="submit"
+                className="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold rounded-xl text-sm hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg shadow-emerald-200 active:scale-[0.98]"
+              >
+                Send Me The Free Guide 🎁
+              </button>
+              <p className="text-[10px] text-text-muted text-center">
+                🔒 No spam. 2,400+ Austin parents trust us. Unsubscribe anytime.
+              </p>
+            </form>
+          )}
+        </div>
+      </section>
 
       {/* How it works */}
       <section className="mb-6">
@@ -160,8 +291,8 @@ function Home() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-6 text-white text-center mb-6">
+      {/* Go Pro CTA */}
+      <section className="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-6 text-white text-center mb-6 shadow-lg shadow-primary/20">
         <h2 className="text-lg font-bold mb-2">Go Pro, Power Parent</h2>
         <p className="text-sm text-white/80 mb-4">
           AI-powered recommendations, priority booking, and last-minute camp swaps.
@@ -175,7 +306,7 @@ function Home() {
       </section>
 
       {/* For Providers */}
-      <section className="bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl p-6 text-white text-center mb-6">
+      <section className="bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl p-6 text-white text-center mb-6 shadow-lg shadow-amber-200">
         <h2 className="text-lg font-bold mb-2">Are You an Austin Provider?</h2>
         <p className="text-sm text-white/90 mb-4">
           Get the "Parent Verified" badge, top search placement, and 0% commissions during our pilot.
@@ -207,7 +338,7 @@ function Stat({ value, label }) {
 
 function StepCard({ number, title, description, icon }) {
   return (
-    <div className="flex items-start gap-4 bg-white rounded-xl border border-gray-100 p-4">
+    <div className="flex items-start gap-4 bg-white rounded-xl border border-gray-100 p-4 hover:shadow-sm transition-shadow">
       <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary flex-shrink-0">
         {icon}
       </div>
@@ -226,7 +357,7 @@ function StepCard({ number, title, description, icon }) {
 
 function ReviewCard({ name, provider, text }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-3.5 shadow-sm">
+    <div className="bg-white rounded-xl border border-gray-100 p-3.5 shadow-sm hover:shadow-md transition-shadow">
       <div className="flex items-center gap-1 mb-1.5">
         {[1, 2, 3, 4, 5].map(i => (
           <svg key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">

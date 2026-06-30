@@ -17,7 +17,12 @@ export function authenticate(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded; // { id, email, name, zip_code }
+    // Support both id and userId for compatibility
+    req.user = {
+      ...decoded,
+      id: decoded.id || decoded.userId,
+      userId: decoded.userId || decoded.id
+    };
     next();
   } catch (err) {
     return res.status(401).json({ message: 'Invalid or expired token' });

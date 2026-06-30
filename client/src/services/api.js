@@ -143,4 +143,38 @@ export const api = {
     method: 'POST',
     body: JSON.stringify(data),
   }),
+
+  // Leads (Waitlist & Lead Magnet)
+  captureLead: (data) => request('/leads', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  }),
+
+  getLeadCount: () => request('/leads/count'),
+
+  // Circles (Private Trust Groups)
+  getCircles: () => request('/circles'),
+
+  createCircle: (data) => request('/circles', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  }),
+
+  joinCircle: (circleId) => request(`/circles/${circleId}/join`, {
+    method: 'POST',
+  }),
+
+  leaveCircle: (circleId) => request(`/circles/${circleId}/leave`, {
+    method: 'POST',
+  }),
+
+  getCircleFeed: (circleId) => request(`/circles/${circleId}/feed`),
+
+  getSuggestedCircles: () => request('/circles/suggested'),
+
+  // Missing Provider (Parent-submitted)
+  submitMissingProvider: (data) => request('/providers/missing', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  }),
 };

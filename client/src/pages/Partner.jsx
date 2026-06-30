@@ -115,7 +115,7 @@ const COMPARISON_ROWS = [
 
 export default function Partner() {
   const PARTNER_STRIPE = 'https://buy.stripe.com/bJedRbcoS1QTelG8cg33W02';
-  const [showForm, setShowForm] = useState(false);
+  const [flowStep, setFlowStep] = useState('info'); // 'info' | 'confirm' | 'submitted'
   const [formData, setFormData] = useState({
     name: '',
     business_name: '',
@@ -147,7 +147,7 @@ export default function Partner() {
         website: formData.website || undefined,
         zip_code: formData.zip_code,
       });
-      setSubmitted(true);
+      setFlowStep('confirm');
     } catch (err) {
       setFormError(err.message || 'Something went wrong. Please try again.');
     } finally {
@@ -172,15 +172,10 @@ export default function Partner() {
             Turn Austin parents' recommendations into bookable leads. Get verified, get visible, and grow your enrichment business.
           </p>
           <div className="flex flex-col gap-3 max-w-xs mx-auto">
-            <a
-              href={PARTNER_STRIPE}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-sm"
-            >
-              Claim Your Profile — $25/mo
+            <a href="#signup" className="btn-primary text-sm">
+              Get Started — Free
             </a>
-            <a href="#how-it-works" className="btn-secondary text-sm">
+            <a href="#features" className="btn-secondary text-sm">
               See How It Works
             </a>
           </div>
@@ -199,7 +194,7 @@ export default function Partner() {
       </section>
 
       {/* ===== FEATURES ===== */}
-      <section id="how-it-works" className="px-4 py-6">
+      <section id="features" className="px-4 py-6">
         <h2 className="text-lg font-bold text-text mb-1 text-center">Everything You Get</h2>
         <p className="text-sm text-text-light mb-5 text-center">The Partner Tier is designed to turn your program into a parent-preferred destination.</p>
         <div className="space-y-3">
@@ -301,7 +296,72 @@ export default function Partner() {
       {/* ===== SIGNUP FORM ===== */}
       <section className="px-4 py-6" id="signup">
         <div className="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-6 text-white">
-          {submitted ? (
+          {flowStep === 'confirm' ? (
+            /* ===== STEP 2: Confirmation — Benefits Recap + Stripe Checkout ===== */
+            <div>
+              <div className="text-center mb-4">
+                <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-3">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h2 className="text-lg font-bold mb-1">Almost There, {formData.name.split(' ')[0]}!</h2>
+                <p className="text-sm text-white/80 mb-0">
+                  Your info is saved. Ready to unlock the full Partner experience?
+                </p>
+              </div>
+
+              {/* Provider Summary */}
+              <div className="bg-white/10 rounded-xl p-4 mb-4">
+                <p className="text-xs text-white/70 mb-2">Your Profile</p>
+                <div className="space-y-1 text-sm text-white">
+                  <p><strong>{formData.business_name}</strong></p>
+                  <p className="text-xs text-white/80">{formData.email} · {formData.zip_code}</p>
+                </div>
+              </div>
+
+              {/* Benefits Recap */}
+              <div className="mb-4">
+                <p className="text-xs font-semibold text-white/80 mb-3 uppercase tracking-wider">Here's What You Get</p>
+                <div className="space-y-2">
+                  {FEATURES.slice(0, 4).map((f, i) => (
+                    <div key={i} className="flex items-start gap-3 bg-white/10 rounded-xl p-3">
+                      <span className="text-base flex-shrink-0">{f.icon}</span>
+                      <div>
+                        <p className="text-xs font-semibold text-white">{f.title}</p>
+                        <p className="text-[10px] text-white/70">{f.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Price summary */}
+              <div className="bg-amber-500/20 rounded-xl p-4 mb-4 text-center border border-amber-400/30">
+                <p className="text-xs text-amber-200 mb-1">Partner Tier Pricing</p>
+                <p className="text-2xl font-bold text-white">$25<span className="text-base text-white/70">/mo</span></p>
+                <p className="text-xs text-amber-200 mt-1">0% commission during Austin pilot</p>
+              </div>
+
+              <a
+                href={PARTNER_STRIPE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full block py-3 bg-white text-primary font-bold rounded-lg text-sm text-center hover:bg-gray-50 transition-colors mb-3"
+              >
+                Complete Signup — $25/mo
+              </a>
+              <button
+                onClick={() => setFlowStep('info')}
+                className="w-full text-sm text-white/70 underline hover:text-white transition-colors"
+              >
+                Back to Edit Info
+              </button>
+              <p className="text-[10px] text-white/50 text-center mt-3">
+                🔒 Secure payment via Stripe. Cancel anytime.
+              </p>
+            </div>
+          ) : submitted ? (
             <div className="text-center py-4">
               <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -464,12 +524,10 @@ export default function Partner() {
             Join Austin's top enrichment providers. Free during the pilot — 0% commission, full visibility.
           </p>
           <a
-            href={PARTNER_STRIPE}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#signup"
             className="inline-flex items-center gap-2 bg-white text-amber-700 font-semibold py-2.5 px-6 rounded-lg text-sm hover:bg-gray-50 transition-colors"
           >
-            Claim Your Profile
+            Get Started Free
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
