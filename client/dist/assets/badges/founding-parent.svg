@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="200" y2="200">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="200" y2="200">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer circle -->
+  <circle cx="100" cy="100" r="96" fill="url(#bg)" stroke="#A78BFA" stroke-width="3"/>
+  <!-- Inner ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- Star -->
+  <path d="M100 30 L110 75 L155 75 L120 100 L135 145 L100 120 L65 145 L80 100 L45 75 L90 75 Z" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.5"/>
+  <!-- Shield center -->
+  <path d="M100 85 L125 95 L125 115 L100 130 L75 115 L75 95 Z" fill="rgba(255,255,255,0.95)" stroke="rgba(255,255,255,0.8)" stroke-width="1"/>
+  <path d="M100 90 L120 98 L120 114 L100 126 L80 114 L80 98 Z" fill="#4F46E5"/>
+  <text x="100" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">KC</text>
+  <!-- Ribbon banner -->
+  <path d="M30 170 L170 170 L160 185 L155 170" fill="url(#ribbon)" stroke="#D97706" stroke-width="1"/>
+  <text x="100" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">FOUNDING</text>
+  <!-- Small stars -->
+  <circle cx="35" cy="55" r="3" fill="#FCD34D" opacity="0.6"/>
+  <circle cx="165" cy="55" r="3" fill="#FCD34D" opacity="0.6"/>
+  <circle cx="25" cy="100" r="2" fill="#FCD34D" opacity="0.4"/>
+  <circle cx="175" cy="100" r="2" fill="#FCD34D" opacity="0.4"/>
+  <!-- Year -->
+  <text x="100" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="rgba(255,255,255,0.6)">2026</text>
+</svg>
