@@ -18,6 +18,8 @@ import { router as trafficRouter } from './routes/traffic.js';
 import { trafficLogger } from './services/traffic.js';
 import { router as foundingParentsRouter } from './routes/founding-parents.js';
 import { router as hotSpotsRouter } from './routes/hot-spots.js';
+import { router as leadsRouter } from './routes/leads.js';
+import { router as circlesRouter } from './routes/circles.js';
 import { router as seoRouter } from './routes/seo.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -63,6 +65,12 @@ app.use('/api/founding', foundingParentsRouter);
 
 // Hot Spot notifications (waitlist for fully booked providers)
 app.use('/api/hot-spots', hotSpotsRouter);
+
+// Lead capture (waitlist signups)
+app.use('/api/leads', leadsRouter);
+
+// Circles (Private Groups)
+app.use('/api/circles', circlesRouter);
 
 // SEO routes (at root level, not under /api)
 app.use('/', seoRouter);

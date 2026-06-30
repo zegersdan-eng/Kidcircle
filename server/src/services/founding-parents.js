@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import db from '../db/connection.js';
 
 // 08:00 Central Time (CDT, UTC-5) = 13:00 UTC
-const LAUNCH_DATE = new Date('2026-07-01T13:00:00Z');
+const LAUNCH_DATE = new Date('2026-07-02T13:00:00Z');
 const FOUNDING_WINDOW_HOURS = 48;
 
 /**
