@@ -89,4 +89,4 @@ kidcircle/
 
 ## License
 
-Copyright © 2026 KidCircle
+Copyright © 2026 KidCircle<!-- Trigger build -->
