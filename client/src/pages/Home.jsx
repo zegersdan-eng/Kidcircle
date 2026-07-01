@@ -139,6 +139,16 @@ function Home() {
             last-minute booking strategies, traffic hacks, and the inside scoop from 500+ local parents.
           </p>
 
+          <Link 
+            to="/guides/austin-summer-survival-guide" 
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-700 mb-4 group"
+          >
+            Read the guide online immediately
+            <svg className="w-3.5 h-3.5 transform transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+
           {emailSubmitted ? (
             <div className="bg-white rounded-xl p-5 text-center border border-emerald-200 shadow-sm">
               <div className="text-3xl mb-2">🎉</div>
@@ -311,17 +321,15 @@ function Home() {
         <p className="text-sm text-white/90 mb-4">
           Get the "Parent Verified" badge, top search placement, and 0% commissions during our pilot.
         </p>
-        <a
-          href="https://buy.stripe.com/bJedRbcoS1QTelG8cg33W02"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/partner"
           className="inline-flex items-center gap-2 bg-white text-amber-700 font-semibold py-2.5 px-6 rounded-lg text-sm hover:bg-gray-50 transition-colors"
         >
           Become a Partner
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-        </a>
+        </Link>
       </section>
     </div>
   );

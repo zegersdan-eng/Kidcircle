@@ -202,4 +202,50 @@ router.get('/:id/members', authenticate, async (req, res) => {
   }
 });
 
+/**
+ * GET /api/circles/:id/feed — Get a feed of recommendations from circle members
+ */
+router.get('/:id/feed', authenticate, async (req, res) => {
+  try {
+    const circle_id = req.params.id;
+    const user_id = req.user.id;
+
+    // Verify user is a member or it's a public circle
+    const memberCheck = await db.execute({
+      sql: 'SELECT * FROM circle_members WHERE circle_id = ? AND user_id = ?',
+      args: [circle_id, user_id],
+    });
+
+    if (memberCheck.rows.length === 0) {
+      const circleResult = await db.execute({
+        sql: 'SELECT type FROM circles WHERE id = ?',
+        args: [circle_id],
+      });
+      if (circleResult.rows.length === 0) {
+        return res.status(404).json({ message: 'Circle not found' });
+      }
+      if (circleResult.rows[0].type !== 'public') {
+        return res.status(403).json({ message: 'Access denied' });
+      }
+    }
+
+    // Get recommendations from all members of the circle
+    const result = await db.execute({
+      sql: `SELECT r.*, u.name as user_name, u.avatar_url as user_avatar, p.name as provider_name, p.logo_url as provider_logo
+            FROM recommendations r
+            JOIN circle_members cm ON r.user_id = cm.user_id
+            JOIN users u ON r.user_id = u.id
+            JOIN providers p ON r.provider_id = p.id
+            WHERE cm.circle_id = ?
+            ORDER BY r.created_at DESC`,
+      args: [circle_id],
+    });
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Circle feed error:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 export { router };
