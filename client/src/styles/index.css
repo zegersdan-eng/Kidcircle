@@ -159,3 +159,17 @@
 .animate-overlay {
   animation: overlay-in 0.2s ease-out;
 }
+
+/* Shimmer effect for gold prestige */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s ease-in-out infinite;
+}

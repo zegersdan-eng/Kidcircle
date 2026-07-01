@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { api } from '../services/api';
 
@@ -53,12 +54,12 @@ const TRAFFIC_OPTIONS = [
 const STEP_ICONS = ['👤', '🎯', '📍', '✨'];
 
 export default function Concierge() {
+  const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [preferences, setPreferences] = useState({ interests: [], neighborhoods: [] });
   const [error, setError] = useState(null);
   const [results, setResults] = useState(null);
-  const [selectedProvider, setSelectedProvider] = useState(null);
 
   // Form state
   const [childAge, setChildAge] = useState('');
@@ -506,23 +507,12 @@ export default function Concierge() {
                     )}
 
                     {/* Action button — opens provider website or shows detail view */}
-                    {provider.website ? (
-                      <a
-                        href={provider.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full block py-2.5 text-sm font-semibold text-center text-white bg-primary rounded-xl hover:bg-primary-dark active:bg-primary-dark/90 transition-colors"
-                      >
-                        Visit Website ↗
-                      </a>
-                    ) : (
-                      <button
-                        onClick={() => setSelectedProvider(provider)}
-                        className="w-full py-2.5 text-sm font-semibold text-center text-white bg-primary rounded-xl hover:bg-primary-dark active:bg-primary-dark/90 transition-colors"
-                      >
-                        More Info
-                      </button>
-                    )}
+                    <button
+                      onClick={() => navigate(`/providers/${provider.id}`)}
+                      className="w-full block py-2.5 text-sm font-semibold text-center text-white bg-primary rounded-xl hover:bg-primary-dark active:bg-primary-dark/90 transition-colors"
+                    >
+                      View Full Profile
+                    </button>
                   </div>
                 );
               })}

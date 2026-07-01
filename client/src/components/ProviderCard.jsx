@@ -1,5 +1,8 @@
-export default function ProviderCard({ provider, featured = false, showClaim = false }) {
+import { Link } from 'react-router-dom';
+
+export default function ProviderCard({ provider, featured = false, showClaim = false, isFavorited = false, onToggleFavorite }) {
   const {
+    id,
     name,
     category_name,
     avg_rating,
@@ -22,11 +25,28 @@ export default function ProviderCard({ provider, featured = false, showClaim = f
   // Generate initials for avatar placeholder
   const initials = name?.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'KC';
 
-  // Color based on rating
-  const ratingColor = avg_rating >= 4.5 ? 'text-green-600' : avg_rating >= 4.0 ? 'text-amber-500' : 'text-gray-500';
+  const handleToggleFavorite = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onToggleFavorite) {
+      onToggleFavorite(id);
+    }
+  };
 
   return (
-    <div className={`provider-card ${isFeatured ? 'featured relative' : ''}`}>
+    <div className={`provider-card ${isFeatured ? 'featured relative' : 'relative'}`}>
+      {/* Favorite button */}
+      <button 
+        onClick={handleToggleFavorite}
+        className={`absolute top-3 right-3 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-all active:scale-90 ${
+          isFavorited ? 'bg-primary/10 text-primary' : 'bg-white/80 text-gray-400 hover:text-gray-600 shadow-sm backdrop-blur-sm'
+        }`}
+      >
+        <svg className={`w-5 h-5 ${isFavorited ? 'fill-current' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+      </button>
+
       {/* Featured tag */}
       {isFeatured && (
         <div className="absolute -top-2 -right-2 z-10">
@@ -34,7 +54,7 @@ export default function ProviderCard({ provider, featured = false, showClaim = f
         </div>
       )}
 
-      <div className="flex gap-3">
+      <Link to={id ? `/providers/${id}` : '#'} className="flex gap-3">
         {/* Thumbnail */}
         <div className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100">
           {logo_url ? (
@@ -116,7 +136,7 @@ export default function ProviderCard({ provider, featured = false, showClaim = f
             )}
           </div>
         </div>
-      </div>
+      </Link>
 
       {/* Action buttons */}
       <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-50">
@@ -132,23 +152,26 @@ export default function ProviderCard({ provider, featured = false, showClaim = f
             Claim
           </button>
         )}
-        {website && (
+        {website ? (
           <a
             href={website}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 py-2 text-sm font-medium text-text-light bg-gray-50 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors text-center flex items-center justify-center gap-1"
-            title={`Visit ${name}'s website`}
+            className="flex-[2] py-2 text-sm font-semibold text-primary bg-primary/5 rounded-lg hover:bg-primary/10 active:bg-primary/15 transition-colors text-center flex items-center justify-center gap-1"
           >
+            Book on Website
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
-            Visit Website
           </a>
+        ) : (
+          <Link 
+            to={`/providers/${id}`}
+            className="flex-[2] py-2 text-sm font-semibold text-primary bg-primary/5 rounded-lg hover:bg-primary/10 active:bg-primary/15 transition-colors text-center"
+          >
+            View Details
+          </Link>
         )}
-        <button className={`py-2 text-sm font-semibold text-primary bg-primary/5 rounded-lg hover:bg-primary/10 active:bg-primary/15 transition-colors ${website ? 'flex-1' : 'flex-[2]'}`}>
-          Book Now
-        </button>
         <button className="py-2 px-3 text-sm font-medium text-text-light bg-gray-50 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />

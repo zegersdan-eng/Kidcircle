@@ -39,8 +39,27 @@ app.use(express.json());
 app.use('/api', trafficLogger);
 
 // Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString(), uptime: process.uptime() });
+app.get('/health', async (req, res) => {
+  try {
+    // Simple query to verify DB connection
+    await initDb(); // Ensures DB is init, but maybe too heavy for every health check
+    // Better: just a simple SELECT
+    const { runQuery } = await import('./db/init.js');
+    await runQuery('SELECT 1');
+    res.json({ 
+      status: 'ok', 
+      database: 'connected',
+      timestamp: new Date().toISOString(), 
+      uptime: process.uptime() 
+    });
+  } catch (err) {
+    res.status(500).json({ 
+      status: 'error', 
+      database: 'disconnected',
+      error: err.message,
+      timestamp: new Date().toISOString() 
+    });
+  }
 });
 
 // API Routes

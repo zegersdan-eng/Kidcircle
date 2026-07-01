@@ -201,7 +201,7 @@ export default function VerificationPortal() {
       {/* Header */}
       <div className="pt-2 mb-5">
         <h1 className="text-xl font-bold text-text mb-0">Verified Background Portal</h1>
-        <p className="text-xs text-text-light">Manage your "Pro Gold Standard" verification</p>
+        <p className="text-xs text-text-light italic">KidCircle Achievement Center: Showcase your commitment to safety excellence.</p>
       </div>
 
       {/* Provider ID entry */}
@@ -242,22 +242,52 @@ export default function VerificationPortal() {
 
       {/* Overall status banner */}
       {verification && (
-        <div className={`rounded-2xl border p-5 mb-5 ${overallBg()}`}>
+        <div className={`rounded-2xl border-2 p-5 mb-5 transition-all duration-300 ${overallBg()} ${
+          verification.overall_status === 'gold_standard' ? 'border-amber-300 shadow-lg shadow-amber-100/40' : ''
+        }`}>
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-xs text-text-light mb-1">Overall Status</p>
-              <h2 className={`text-lg font-bold ${overallColor()}`}>{overallLabel()}</h2>
+              <p className="text-xs text-text-light mb-1 flex items-center gap-1.5">
+                Overall Status
+                {verification.overall_status === 'gold_standard' && (
+                  <span className="inline-flex items-center gap-0.5 text-[10px] text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full font-semibold">
+                    <span>✨</span> Achieved
+                  </span>
+                )}
+              </p>
+              <h2 className={`text-lg font-bold flex items-center gap-2 ${overallColor()}`}>
+                {verification.overall_status === 'gold_standard' && <span className="text-xl drop-shadow-sm">🏆</span>}
+                {overallLabel()}
+                {verification.overall_status === 'gold_standard' && (
+                  <span className="inline-flex text-lg">
+                    <span className="animate-pulse">✨</span>
+                  </span>
+                )}
+              </h2>
               <p className="text-xs text-text-light mt-1">
                 {completedCount} of {VERIFICATION_CHECKS.length} requirements met
               </p>
+              {verification.overall_status === 'gold_standard' && (
+                <div className="mt-2 inline-flex items-center gap-1 bg-gradient-to-r from-amber-100 to-amber-50 rounded-full px-3 py-0.5 border border-amber-200">
+                  <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider">Gold-Bordered Profile Active</span>
+                </div>
+              )}
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold text-text">{Math.round((completedCount / VERIFICATION_CHECKS.length) * 100)}%</div>
-              <div className="w-20 h-1.5 bg-gray-200 rounded-full mt-1 overflow-hidden">
+              <div className="text-2xl font-bold text-text flex items-center justify-end gap-1">
+                {verification.overall_status === 'gold_standard' && <span className="text-amber-400 text-lg">⭐</span>}
+                {Math.round((completedCount / VERIFICATION_CHECKS.length) * 100)}%
+              </div>
+              <div className="w-20 h-1.5 bg-gray-200 rounded-full mt-1 overflow-hidden relative">
                 <div
-                  className="h-full bg-primary rounded-full transition-all duration-700"
+                  className={`h-full rounded-full transition-all duration-700 ${
+                    verification.overall_status === 'gold_standard' ? 'bg-gradient-to-r from-amber-400 to-amber-600' : 'bg-primary'
+                  }`}
                   style={{ width: `${(completedCount / VERIFICATION_CHECKS.length) * 100}%` }}
                 />
+                {verification.overall_status === 'gold_standard' && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
+                )}
               </div>
             </div>
           </div>
@@ -356,11 +386,12 @@ export default function VerificationPortal() {
                 )}
 
                 {isDone && (
-                  <div className="flex items-center gap-1 text-xs text-green-600">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="flex items-center gap-1 text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-full px-2.5 py-0.5">
+                    <svg className="w-3 h-3 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
-                    Completed
+                    <span className="font-medium">Completed</span>
+                    <span className="text-[10px]">✨</span>
                   </div>
                 )}
               </div>
@@ -471,19 +502,70 @@ export default function VerificationPortal() {
         </>
       )}
 
-      {/* Summary Info */}
+      {/* Summary Info - Pro Gold Standard */}
       {verification && (
-        <div className="bg-gradient-to-r from-gray-50 to-white rounded-2xl border border-gray-100 p-5 mt-5">
-          <h3 className="text-sm font-bold text-text mb-3">About Pro Gold Standard</h3>
+        <div className={`mt-5 rounded-2xl border-2 p-5 transition-all duration-300 ${
+          verification.overall_status === 'gold_standard'
+            ? 'bg-gradient-to-br from-amber-50 via-amber-50/30 to-white border-amber-300 shadow-lg shadow-amber-100/30'
+            : 'bg-gradient-to-r from-amber-50/30 to-white border-amber-100'
+        }`}>
+          <div className="flex items-center gap-3 mb-3">
+            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl shadow-sm ${
+              verification.overall_status === 'gold_standard'
+                ? 'bg-gradient-to-br from-amber-400 to-amber-600 shadow-amber-200'
+                : 'bg-gradient-to-br from-amber-100 to-amber-50'
+            }`}>
+              {verification.overall_status === 'gold_standard' ? '👑' : '🏆'}
+            </div>
+            <div>
+              <h3 className={`text-sm font-bold ${
+                verification.overall_status === 'gold_standard' ? 'text-amber-800' : 'text-text'
+              }`}>
+                {verification.overall_status === 'gold_standard' ? '🏆 Pro Gold Standard — Earned!' : 'The "Pro Gold Standard" Achievement'}
+              </h3>
+              <p className="text-[10px] text-text-muted">
+                {verification.overall_status === 'gold_standard'
+                  ? 'Your profile now features gold-bordered trust signals ✨'
+                  : 'Voluntary excellence badge for top-tier providers'
+                }
+              </p>
+            </div>
+            {verification.overall_status === 'gold_standard' && (
+              <span className="ml-auto text-lg animate-pulse">✨</span>
+            )}
+          </div>
           <div className="space-y-2 text-xs text-text-light">
-            <p>✅ All 6 checks must pass to earn the "Pro Gold Standard" badge</p>
-            <p>🔄 Background checks re-run quarterly for ongoing compliance</p>
-            <p>⏱ Document reviews completed within 4 hours during business days</p>
-            <p>🏆 Once awarded, your provider profile gets the premium badge and search boost</p>
+            {verification.overall_status === 'gold_standard' ? (
+              <>
+                <div className="flex items-center gap-2 bg-green-50 rounded-lg p-2.5 border border-green-100">
+                  <span className="text-sm">✅</span>
+                  <span className="text-green-800 font-medium">All 6 checks passed!</span>
+                </div>
+                <div className="flex items-center gap-2 bg-amber-50 rounded-lg p-2.5 border border-amber-100">
+                  <span className="text-sm">👑</span>
+                  <span className="text-amber-800 font-medium">Gold-bordered "Parent Verified" badge active on your listing</span>
+                </div>
+                <div className="flex items-center gap-2 bg-blue-50 rounded-lg p-2.5 border border-blue-100">
+                  <span className="text-sm">🚀</span>
+                  <span className="text-blue-800 font-medium">Priority placement in search results and Featured Providers carousel</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <p>🌟 This is a <strong>voluntary excellence badge</strong> for top-tier providers.</p>
+                <p>✅ All 6 checks must pass to earn the "Pro Gold Standard" badge on your profile.</p>
+                <p>🛡️ Earn parent trust by verifying your identity, background, and licensing.</p>
+                <p>🚀 Once awarded, your listing receives the "Gold-Bordered" boost in search results.</p>
+              </>
+            )}
           </div>
           <Link
             to="/analytics-dashboard"
-            className="mt-4 w-full py-3 bg-primary/5 text-primary font-semibold rounded-xl text-sm hover:bg-primary/10 transition-colors flex items-center justify-center gap-2"
+            className={`mt-4 w-full py-3 font-semibold rounded-xl text-sm transition-colors flex items-center justify-center gap-2 ${
+              verification.overall_status === 'gold_standard'
+                ? 'bg-gradient-to-r from-amber-400 to-amber-600 text-white shadow-md shadow-amber-200 hover:shadow-lg hover:from-amber-500 hover:to-amber-700'
+                : 'bg-primary/5 text-primary hover:bg-primary/10'
+            }`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />

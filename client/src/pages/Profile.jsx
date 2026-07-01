@@ -1,5 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { api } from '../services/api';
+import ProviderCard from '../components/ProviderCard';
 
 let nextChildId = 3; // Counter for unique child IDs
 
@@ -15,7 +17,35 @@ export default function Profile() {
   const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
   const [toast, setToast] = useState(null);
   const [isFoundingParent, setIsFoundingParent] = useState(true);
+  const [favorites, setFavorites] = useState([]);
+  const [loadingFavorites, setLoadingFavorites] = useState(false);
   const navigate = useNavigate();
+
+  const fetchFavorites = useCallback(async () => {
+    setLoadingFavorites(true);
+    try {
+      const data = await api.getFavorites();
+      setFavorites(data);
+    } catch (err) {
+      console.error('Failed to fetch favorites:', err);
+    } finally {
+      setLoadingFavorites(false);
+    }
+  }, []);
+
+  const handleToggleFavorite = async (providerId) => {
+    try {
+      await api.removeFavorite(providerId);
+      setFavorites(prev => prev.filter(f => f.provider_id !== providerId));
+      showToast('Removed from favorites', 'info');
+    } catch (err) {
+      console.error('Toggle favorite error:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchFavorites();
+  }, [fetchFavorites]);
 
   // --- PERSISTENT STATE: Children ---
   const [children, setChildren] = useState(INITIAL_CHILDREN);
@@ -170,6 +200,7 @@ export default function Profile() {
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: '👤' },
+    { id: 'favorites', label: 'My Favorites', icon: '❤️' },
     { id: 'kids', label: 'My Kids', icon: '👶' },
     { id: 'circles', label: 'Circles', icon: '👥' },
     { id: 'referrals', label: 'Referrals', icon: '📊' },
@@ -781,6 +812,50 @@ export default function Profile() {
                 </svg>
               </Link>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tab: Favorites */}
+      {activeTab === 'favorites' && (
+        <div className="space-y-4">
+          <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-bold text-text">My Favorited Providers</h2>
+              <span className="text-xs text-text-light">{favorites.length} saved</span>
+            </div>
+
+            {loadingFavorites ? (
+              <div className="py-12 text-center">
+                <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+              </div>
+            ) : favorites.length > 0 ? (
+              <div className="space-y-3">
+                {favorites.map(fav => (
+                  <ProviderCard 
+                    key={fav.id} 
+                    provider={{
+                      id: fav.provider_id,
+                      name: fav.provider_name,
+                      category_id: fav.category_id,
+                      zip_code: fav.zip_code,
+                      avg_rating: fav.avg_rating,
+                      category_name: fav.category_id?.replace('cat-', '').toUpperCase()
+                    }}
+                    isFavorited={true}
+                    onToggleFavorite={() => handleToggleFavorite(fav.provider_id)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12 bg-gray-50 rounded-xl">
+                <span className="text-3xl block mb-2">❤️</span>
+                <p className="text-sm text-text-light mb-4">No favorites yet</p>
+                <Link to="/providers" className="btn-primary text-sm inline-block px-6">
+                  Discover Providers
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

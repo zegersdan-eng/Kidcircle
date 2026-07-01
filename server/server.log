@@ -1,0 +1,698 @@
+nohup: ignoring input
+
+> kidcircle-server@0.1.0 start
+> node src/index.js
+
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Database initialized successfully
+Traffic data already seeded (227 rows), skipping.
+Traffic data seeded: 227 records
+KidCircle server running on http://0.0.0.0:3000
+Killed
+ircle-server@0.1.0 start
+> node src/index.js
+
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Database initialized successfully
+Traffic data already seeded (230 rows), skipping.
+Traffic data seeded: 230 records
+node:events:487
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:3000
+    at Server.setupListenHandle [as _listen2] (node:net:2009:16)
+    at listenInCluster (node:net:2066:12)
+    at node:net:2275:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:2045:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 3000
+}
+
+Node.js v24.17.0
+
+> kidcircle-server@0.1.0 start
+> node src/index.js
+
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Database initialized successfully
+Traffic data already seeded (230 rows), skipping.
+Traffic data seeded: 230 records
+KidCircle server running on http://0.0.0.0:3000
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Get verification error: LibsqlError: SQLITE_CONSTRAINT: SQLite error: FOREIGN KEY constraint failed
+    at mapHranaError (file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/hrana.js:268:16)
+    at file:///home/team/shared/kidcircle/server/node_modules/@libsql/client/lib-esm/http.js:76:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/team/shared/kidcircle/server/src/routes/verification.js:95:7 {
+  code: 'SQLITE_CONSTRAINT',
+  rawCode: undefined,
+  [cause]: [ResponseError: SQLite error: FOREIGN KEY constraint failed] {
+    code: 'SQLITE_CONSTRAINT',
+    proto: {
+      message: 'SQLite error: FOREIGN KEY constraint failed',
+      code: 'SQLITE_CONSTRAINT'
+    }
+  }
+}
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Killed
+
+> kidcircle-server@0.1.0 start
+> node src/index.js
+
+Applying migration: 001_initial_schema.sql
+Applying migration: 002_founding_parent.sql
+Applying migration: 003_site_traffic.sql
+Applying migration: 004_hot_spots.sql
+Applying migration: 005_leads.sql
+Applying migration: 006_circles.sql
+Applying migration: 007_provider_enhancements.sql
+Applying migration: 008_provider_suggested.sql
+Applying migration: 009_lead_tracking.sql
+Database schema initialization complete
+Database initialized successfully
+Traffic data already seeded (292 rows), skipping.
+Traffic data seeded: 292 records
+KidCircle server running on http://0.0.0.0:3000

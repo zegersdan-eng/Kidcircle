@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node --watch src/index.js",
     "start": "node src/index.js",
+    "launch": "./scripts/launch.sh",
     "migrate": "node src/db/migrate.js"
   },
   "dependencies": {

@@ -94,7 +94,7 @@ const FAQS = [
   },
   {
     q: 'Is background verification required?',
-    a: 'The full 6-point "Pro Gold Standard" is required for the highest badge tier. However, you can start with a basic profile and collect 3 parent reviews to earn the standard "Parent Verified" badge before completing advanced checks.',
+    a: 'While basic profile registration is free and open to all Austin enrichment providers, the full 6-point "Pro Gold Standard" is a voluntary achievement that earns you our highest trust badge. It is designed for providers who want to distinguish themselves by meeting the city\'s most rigorous safety standards.',
   },
   {
     q: 'What happens after the pilot phase?',
@@ -173,10 +173,10 @@ export default function Partner() {
           </p>
           <div className="flex flex-col gap-3 max-w-xs mx-auto">
             <a href="#signup" className="btn-primary text-sm">
-              Get Started — Free
+              Claim Your Profile — Free
             </a>
             <a href="#features" className="btn-secondary text-sm">
-              See How It Works
+              Learn More & See Benefits
             </a>
           </div>
         </div>
@@ -214,27 +214,52 @@ export default function Partner() {
 
       {/* ===== 6-POINT VERIFICATION ===== */}
       <section className="px-4 py-6 bg-gradient-to-b from-gray-50 to-white">
-        <div className="text-center mb-5">
-          <h2 className="text-lg font-bold text-text mb-1">The "Pro Gold Standard"</h2>
-          <p className="text-sm text-text-light max-w-sm mx-auto">
-            Our 6-point verification process ensures parents that your program meets the highest safety and quality standards.
-          </p>
-        </div>
-        <div className="space-y-3">
-          {VERIFICATION_STEPS.map((step, i) => (
-            <div key={step.id} className="bg-white rounded-xl border border-gray-100 p-4 flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/5 flex items-center justify-center text-sm font-bold text-primary flex-shrink-0">
-                {i + 1}
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-0.5">
-                  <span className="text-base">{step.icon}</span>
-                  <h3 className="text-sm font-semibold text-text">{step.title}</h3>
+        <div className="max-w-lg mx-auto">
+          {/* Prestige header */}
+          <div className="text-center mb-5">
+            <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-100 to-amber-50 border border-amber-200/60 rounded-full px-4 py-1.5 mb-3 shadow-sm">
+              <span className="text-sm">🏆</span>
+              <span className="text-xs font-bold text-amber-800 uppercase tracking-wider">Voluntary Excellence Achievement</span>
+            </div>
+            <h2 className="text-lg font-bold text-text mb-1">
+              The <span className="bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent">Pro Gold Standard</span> Achievement
+            </h2>
+            <p className="text-sm text-text-light max-w-sm mx-auto">
+              A voluntary excellence badge for providers who want to showcase the highest tier of safety and professionalism. Not mandatory for listing, but highly recommended for top-tier trust.
+            </p>
+          </div>
+
+          {/* Gold-bordered container */}
+          <div className="bg-gradient-to-b from-amber-50/40 to-white rounded-2xl border-2 border-amber-200/40 p-5 shadow-lg shadow-amber-100/30">
+            <div className="space-y-3">
+              {VERIFICATION_STEPS.map((step, i) => (
+                <div key={step.id} className="bg-white rounded-xl border border-gray-100 p-4 flex items-start gap-3 hover:border-amber-200/50 hover:shadow-sm transition-all duration-200">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-xs font-bold text-white shadow-sm shadow-amber-200 flex-shrink-0">
+                    <span className="drop-shadow-sm">{i + 1}</span>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-base">{step.icon}</span>
+                      <h3 className="text-sm font-semibold text-text">{step.title}</h3>
+                      <span className="text-[10px] text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full border border-amber-100 ml-auto">Pro Gold</span>
+                    </div>
+                    <p className="text-xs text-text-light">{step.desc}</p>
+                  </div>
                 </div>
-                <p className="text-xs text-text-light">{step.desc}</p>
+              ))}
+            </div>
+
+            {/* Aspirational footer */}
+            <div className="mt-5 pt-4 border-t border-amber-100/60 text-center">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-100 to-amber-50 rounded-xl px-4 py-2.5">
+                <span className="text-lg">👑</span>
+                <div>
+                  <p className="text-xs font-bold text-amber-800">Earn the Pro Gold Standard</p>
+                  <p className="text-[10px] text-amber-600">Complete all 6 checks to unlock the gold-bordered "Parent Verified" badge on your profile</p>
+                </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
@@ -256,11 +281,11 @@ export default function Partner() {
               'Verify your physical Austin-area address',
               'Set up pricing and seasonal camp dates',
             ]} />
-            <ChecklistSection title="Phase 2: Trust & Safety" items={[
-              'Collect 3 verified reviews from current parents',
-              'Complete identity check via Stripe + Checkr background search',
-              'Upload Texas DFPS Childcare License or health permits (if applicable)',
-              'Submit Certificate of Insurance ($1M+ GL)',
+            <ChecklistSection title="Phase 2: Trust & Safety (Voluntary)" items={[
+              'Collect 3 verified reviews from current parents (Earns "Verified" status)',
+              'Identity check via Stripe + Checkr background search (Pro Gold)',
+              'Texas DFPS License or health permits (Pro Gold)',
+              'Submit Certificate of Insurance ($1M+ GL) (Pro Gold)',
             ]} />
             <ChecklistSection title="Phase 3: Engagement" items={[
               'Commit to <24-hour response time on inquiries',

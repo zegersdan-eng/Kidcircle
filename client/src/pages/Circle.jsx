@@ -39,6 +39,27 @@ const SUGGESTED_CIRCLES = [
   { id: 'sug-3', name: 'Westlake Youth Sports', type: 'school', memberCount: 35, mutual: 2 },
 ];
 
+// Per-circle feed posts (recommendations from members)
+const CIRCLE_FEEDS = {
+  'circle-1': [
+    { id: 'post-1', author: 'Sarah L.', avatar: 'SL', text: 'My kids absolutely loved the musical theatre camp at ZACH Theatre! The instructors are incredible and the final show was amazing. Highly recommend for ages 6-9.', rating: 5, timestamp: '2 hours ago', tags: ['Theatre', 'Summer Camp'], provider_id: '348eec33-940a-4a07-8e52-45f9b3d6f544' },
+    { id: 'post-2', author: 'Megan K.', avatar: 'MK', text: 'Has anyone tried the new coding camp at Neuron Garage? Thinking of signing up my 8-year-old.', rating: 0, timestamp: 'Yesterday', tags: ['Coding', 'STEM'], comments: 4, provider_id: 'f3c7b8a1-2d4e-4b2a-8d1c-8e4f5a3b2c1d' },
+    { id: 'post-3', author: 'Jessica R.', avatar: 'JR', text: '⚠️ Heads up — The Art Garage summer camps are almost full for July. Just booked the last spot for week 3!', rating: 0, timestamp: '2 days ago', tags: ['Alert', 'Art'], provider_id: '90c023b6-673b-49c3-922b-76babab8c323' },
+    { id: 'post-4', author: 'Amanda T.', avatar: 'AT', text: 'Our group got a discount code for South Austin Soccer Club — DM me if you want it! 15% off summer clinics.', rating: 0, timestamp: '3 days ago', tags: ['Sports', 'Deal'], provider_id: 'b5f1a2d3-4e5f-6a7b-8c9d-0e1f2a3b4c5d' },
+  ],
+  'circle-2': [
+    { id: 'post-5', author: 'Mike R.', avatar: 'MR', text: 'Just signed my son up for South Austin Soccer — Coach Martinez runs a fantastic program. Patient, encouraging, and fun!', rating: 5, timestamp: '1 hour ago', tags: ['Soccer', 'Sports'], provider_id: 'b5f1a2d3-4e5f-6a7b-8c9d-0e1f2a3b4c5d' },
+    { id: 'post-6', author: 'Diana M.', avatar: 'DM', text: 'Any recommendations for a math tutor near Circle C? My 4th grader needs help before school starts.', rating: 0, timestamp: '5 hours ago', tags: ['Tutoring', 'Math'], comments: 3 },
+    { id: 'post-7', author: 'Rachel K.', avatar: 'RK', text: 'The new splash pad at Dick Nichols Park is perfect for hot days! Free and shaded seating for parents.', rating: 4, timestamp: 'Yesterday', tags: ['Free', 'Outdoor'] },
+    { id: 'post-8', author: 'Jen T.', avatar: 'JT', text: 'Selling two spots for The Art Garage pottery camp week of July 12 — $250 each (paid $320). Message me!', rating: 0, timestamp: '2 days ago', tags: ['Swap', 'Art'], provider_id: '90c023b6-673b-49c3-922b-76babab8c323' },
+  ],
+  'circle-3': [
+    { id: 'post-9', author: 'James H.', avatar: 'JH', text: 'New summer clinic dates are posted! U8-U12 sessions starting June 15. Early bird discount ends this week.', rating: 0, timestamp: '30 min ago', tags: ['Soccer', 'Announcement'] },
+    { id: 'post-10', author: 'Tina W.', avatar: 'TW', text: 'My daughter improved so much this season. Coach Martinez really knows how to work with young athletes.', rating: 5, timestamp: '1 day ago', tags: ['Soccer', 'Review'] },
+    { id: 'post-11', author: 'Anna B.', avatar: 'AB', text: 'Anyone carpooling from the Mueller area to evening practices? Trying to coordinate.', rating: 0, timestamp: '3 days ago', tags: ['Carpool'], comments: 6 },
+  ],
+};
+
 export default function Circle() {
   const navigate = useNavigate();
   const [circleTab, setCircleTab] = useState('my-circles');
@@ -60,6 +81,9 @@ export default function Circle() {
 
   // Joining state
   const [joining, setJoining] = useState(null);
+  // Feed view
+  const [activeFeed, setActiveFeed] = useState(null);
+  const [feedLoading, setFeedLoading] = useState(false);
 
   const showToast = useCallback((message, type = 'success') => {
     setToast({ message, type });
@@ -155,11 +179,25 @@ export default function Circle() {
     }
   };
 
-  const handleViewFeed = (circle) => {
-    showToast(`Opening feed for ${circle.name}...`, 'info');
-    // Navigate to a feed view (or show inline)
-    setSelectedCircle(circle);
+  const handleViewFeed = async (circle) => {
+    setFeedLoading(true);
+    setActiveFeed(circle);
+    // Try API first, fall back to mock data
+    try {
+      const posts = await api.getCircleFeed(circle.id);
+      if (Array.isArray(posts) && posts.length > 0) {
+        setActiveFeedPosts(posts);
+      } else {
+        setActiveFeedPosts(CIRCLE_FEEDS[circle.id] || []);
+      }
+    } catch (err) {
+      setActiveFeedPosts(CIRCLE_FEEDS[circle.id] || []);
+    } finally {
+      setFeedLoading(false);
+    }
   };
+
+  const [activeFeedPosts, setActiveFeedPosts] = useState([]);
 
   const handleInviteMembers = (circle) => {
     const shareData = {
@@ -509,6 +547,118 @@ export default function Circle() {
               >
                 <span className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-lg">💬</span>
                 <span className="text-[10px]">Text</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Circle Feed Modal */}
+      {activeFeed && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 p-0 sm:p-4 animate-overlay" onClick={() => { setActiveFeed(null); setActiveFeedPosts([]); }}>
+          <div className="bg-white rounded-t-2xl sm:rounded-2xl w-full max-w-sm max-h-[85vh] shadow-xl overflow-hidden" onClick={e => e.stopPropagation()}>
+            {/* Feed header */}
+            <div className="sticky top-0 bg-white border-b border-gray-100 p-4 z-10">
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-xs font-bold text-primary">
+                    {activeFeed.name.split(' ').map(w => w[0]).slice(0, 2).join('')}
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-text">{activeFeed.name}</h3>
+                    <p className="text-[10px] text-text-muted">Circle Feed · {activeFeedPosts.length} posts</p>
+                  </div>
+                </div>
+                <button onClick={() => { setActiveFeed(null); setActiveFeedPosts([]); }} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 flex-shrink-0">
+                  <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Feed content */}
+            <div className="p-4 space-y-3 overflow-y-auto max-h-[65vh]">
+              {feedLoading ? (
+                <div className="space-y-3">
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="animate-pulse">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 rounded-full bg-gray-200" />
+                        <div className="h-3 bg-gray-200 rounded w-24" />
+                      </div>
+                      <div className="h-12 bg-gray-100 rounded-xl" />
+                    </div>
+                  ))}
+                </div>
+              ) : activeFeedPosts.length === 0 ? (
+                <div className="text-center py-8">
+                  <span className="text-3xl block mb-2">📭</span>
+                  <p className="text-sm text-text-light">No posts in this circle yet.</p>
+                  <p className="text-xs text-text-muted mt-1">Recommendations will appear here.</p>
+                </div>
+              ) : (
+                activeFeedPosts.map((post) => (
+                  <div key={post.id} className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center text-[10px] font-bold text-primary">
+                        {post.avatar}
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-text">{post.author}</p>
+                        <p className="text-[10px] text-text-muted">{post.timestamp}</p>
+                      </div>
+                      {post.rating > 0 && (
+                        <div className="ml-auto flex items-center gap-0.5">
+                          {[1, 2, 3, 4, 5].map(i => (
+                            <svg key={i} className={`w-3 h-3 ${i <= post.rating ? 'text-amber-400' : 'text-gray-200'}`} fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-xs text-text-light leading-relaxed">{post.text}</p>
+                    {post.provider_id && (
+                      <Link
+                        to={`/providers/${post.provider_id}`}
+                        className="inline-flex items-center gap-1 text-[10px] font-bold text-primary hover:underline mt-1"
+                      >
+                        View Provider Details
+                        <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    )}
+                    {post.tags && post.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {post.tags.map((tag, i) => (
+                          <span key={i} className="text-[10px] bg-gray-50 text-text-muted px-2 py-0.5 rounded-full border border-gray-100">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {post.comments > 0 && (
+                      <div className="flex items-center gap-1 mt-2 text-[10px] text-text-muted">
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        <span>{post.comments} {post.comments === 1 ? 'comment' : 'comments'}</span>
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* Feed footer */}
+            <div className="sticky bottom-0 bg-white border-t border-gray-100 p-3">
+              <button
+                onClick={() => { setActiveFeed(null); setActiveFeedPosts([]); }}
+                className="w-full py-2.5 text-sm font-medium text-primary bg-primary/5 rounded-xl hover:bg-primary/10 transition-colors active:scale-[0.97]"
+              >
+                Close Feed
               </button>
             </div>
           </div>

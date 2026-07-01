@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Discover from './pages/Discover';
+import ProviderDetail from './pages/ProviderDetail';
 import Concierge from './pages/Concierge';
 import Circle from './pages/Circle';
 import Profile from './pages/Profile';
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/providers" element={<Discover />} />
+          <Route path="/providers/:id" element={<ProviderDetail />} />
           <Route path="/concierge" element={<Concierge />} />
           <Route path="/circle" element={<Circle />} />
           <Route path="/profile" element={<Profile />} />

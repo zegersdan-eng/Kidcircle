@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { api } from '../services/api';
 
 const STATUS_CONFIG = {
@@ -264,6 +265,14 @@ export default function SwapMarketplace() {
                   <div>
                     <h2 className="text-lg font-bold text-text">{selectedSwap.provider_name}</h2>
                     <p className="text-xs text-text-light">{selectedSwap.listing_user_name} is selling their spot</p>
+                    {selectedSwap.provider_id && (
+                      <Link
+                        to={`/providers/${selectedSwap.provider_id}`}
+                        className="text-xs font-semibold text-primary hover:underline mt-1 inline-block"
+                      >
+                        View Full Provider Profile
+                      </Link>
+                    )}
                   </div>
                   <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${STATUS_CONFIG[selectedSwap.status]?.bg || 'bg-gray-50'} ${STATUS_CONFIG[selectedSwap.status]?.color || 'text-gray-600'}`}>
                     {STATUS_CONFIG[selectedSwap.status]?.dot} {STATUS_CONFIG[selectedSwap.status]?.label}
@@ -365,6 +374,15 @@ export default function SwapMarketplace() {
                         <div className="min-w-0">
                           <h3 className="text-sm font-bold text-text">{swap.provider_name}</h3>
                           <p className="text-xs text-text-light">{swap.listing_user_name}</p>
+                          {swap.provider_id && (
+                            <Link
+                              to={`/providers/${swap.provider_id}`}
+                              className="text-[10px] font-medium text-primary hover:underline"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              View Provider Profile
+                            </Link>
+                          )}
                         </div>
                         <div className="text-right flex-shrink-0">
                           <p className="text-lg font-bold text-green-600">${swap.swap_price}</p>

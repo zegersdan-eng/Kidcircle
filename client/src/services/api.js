@@ -19,6 +19,8 @@ async function request(endpoint, options = {}) {
   return response.json();
 }
 
+const DEMO_USER_ID = '6b18593b-17de-4146-a6c1-5e245e02e580';
+
 export const api = {
   // Auth
   login: (email, password) => request('/auth/login', {
@@ -47,19 +49,19 @@ export const api = {
 
   createRecommendation: (data) => request('/recommendations', {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify({ user_id: DEMO_USER_ID, ...data }),
   }),
 
   // Categories
   getCategories: () => request('/categories'),
 
   // Favorites
-  getFavorites: () => request('/favorites'),
-  addFavorite: (providerId) => request('/favorites', {
+  getFavorites: (userId = DEMO_USER_ID) => request(`/favorites?user_id=${userId}`),
+  addFavorite: (providerId, userId = DEMO_USER_ID) => request('/favorites', {
     method: 'POST',
-    body: JSON.stringify({ provider_id: providerId }),
+    body: JSON.stringify({ user_id: userId, provider_id: providerId }),
   }),
-  removeFavorite: (providerId) => request(`/favorites/${providerId}`, {
+  removeFavorite: (providerId, userId = DEMO_USER_ID) => request(`/favorites/${providerId}?user_id=${userId}`, {
     method: 'DELETE',
   }),
 

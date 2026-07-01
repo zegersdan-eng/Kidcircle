@@ -42,6 +42,7 @@ const DEFAULT_FILTERS = {
 
 export default function Discover() {
   const [providers, setProviders] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -55,6 +56,31 @@ export default function Discover() {
   });
   const [addErrors, setAddErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+
+  const fetchFavorites = useCallback(async () => {
+    try {
+      const data = await api.getFavorites();
+      setFavorites(data);
+    } catch (err) {
+      console.error('Failed to fetch favorites:', err);
+    }
+  }, []);
+
+  const handleToggleFavorite = async (providerId) => {
+    const isFav = favorites.some(f => f.provider_id === providerId);
+    try {
+      if (isFav) {
+        await api.removeFavorite(providerId);
+        setFavorites(prev => prev.filter(f => f.provider_id !== providerId));
+      } else {
+        await api.addFavorite(providerId);
+        const data = await api.getFavorites();
+        setFavorites(data);
+      }
+    } catch (err) {
+      console.error('Toggle favorite error:', err);
+    }
+  };
 
   const showToast = useCallback((message, type = 'success') => {
     setToast({ message, type });
@@ -101,9 +127,13 @@ export default function Discover() {
       if (categoryId) params.category_id = categoryId;
       if (filters.minRating > 0) params.min_rating = filters.minRating;
 
-      const data = await api.getProviders(params);
+      const [data, favs] = await Promise.all([
+        api.getProviders(params),
+        api.getFavorites()
+      ]);
       // API returns { providers: [...] }
       const list = Array.isArray(data) ? data : (data.providers || []);
+      setFavorites(favs);
 
       // Enrich with category names
       const enriched = list.map(p => ({
@@ -245,6 +275,8 @@ export default function Discover() {
               key={provider.id || index}
               provider={provider}
               featured={provider.featured}
+              isFavorited={favorites.some(f => f.provider_id === provider.id)}
+              onToggleFavorite={handleToggleFavorite}
             />
           ))}
           <button
